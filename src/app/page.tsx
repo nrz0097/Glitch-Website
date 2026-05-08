@@ -44,7 +44,7 @@ const translations = {
     phiDesc: "We celebrate the imperfections. The glitches in the everyday routine. Our open-air space is designed for authentic connections and raw experiences. No filters needed.",
     menuSig1: "Signature — 01",
     menuSig2: "Signature — 02",
-    menuDesc1: "Our signature sweet and salty escape. Rich butterscotch meeting perfectly extracted espresso, finished with a hint of sea salt.",
+    menuDesc1: "Our signature sweet and salty escape. Rich butterscotch meeting perfectly whipping cream and extracted espresso, finished with a hint of sea salt.",
     menuDesc2: "Pure. Bold. Intense. Single origin beans crafted to reveal rich, dark notes with zero acidity and a clean, powerful finish. This is coffee at its rawest.",
     menuFull: "The Full Static",
     menuEssentials: "Menu Essentials",
@@ -136,12 +136,14 @@ const menuData = [
       { name: "Tropica Static (Kopi Susu Kelapa)", price: "18K" },
       { name: "Bit Berry (Kopi Susu Stroberi)", price: "18K" },
       { name: "Brown Signal (Kopi Susu Aren)", price: "18K" },
-      { name: "Golden Delay (Kopi Susu Karamel)", price: "20K" },
-      { name: "Soft Byte (Kopi Susu Vanila)", price: "20K" },
-      { name: "Pandan Drift (Kopi Susu Pandan)", price: "20K" },
-      { name: "Sunny Peel (Kopi Susu Pisang)", price: "20K" },
-      { name: "Nut Stream (Kopi Susu Hazelnut)", price: "20K" },
-      { name: "Monswift (Kopi Susu Cinnamon)", price: "23K" },
+      { name: "Golden Delay (Kopi Susu Karamel)", price: "21K" },
+      { name: "Soft Byte (Kopi Susu Vanila)", price: "21K" },
+      { name: "Pandan Drift (Kopi Susu Pandan)", price: "21K" },
+      { name: "Sunny Peel (Kopi Susu Pisang)", price: "21K" },
+      { name: "Nut Stream (Kopi Susu Hazelnut)", price: "21K" },
+      { name: "Mocha Tide (Kopi Susu Mocha Seasalt)", price: "21K" },
+      { name: "Bloom Sign (Kopi Susu Jasmine)", price: "21K" },
+      { name: "Monswift (Kopi Susu Cinnamon)", price: "22K" },
       { name: "Buttersync (Kopi Susu Butterscotch)", price: "23K" },
       { name: "Sweetflow (Kopi Susu Caramel Macchiato)", price: "23K" },
     ]
@@ -151,24 +153,33 @@ const menuData = [
     items: [
       { name: "Ice Black", price: "18K" },
       { name: "Vietnam Drip", price: "20K" },
-      { name: "Shakerato", price: "20K" },
-      { name: "Peach Wave", price: "21K" },
+      { name: "Shakerato", price: "21K" },
       { name: "Honey Fizz", price: "21K" },
+      { name: "Peach Wave", price: "22K" },
       { name: "Berry Comb", price: "22K" },
-      { name: "Extra Shot", price: "5K" },
+      { name: "Espresso", price: "10K" },
     ]
   },
   {
     category: "NON COFFEE",
     items: [
-      { name: "Dark Error (Coklat)", price: "18K" },
-      { name: "Hazel Core (Coklat Hazelnut)", price: "20K" },
-      { name: "Amber Echo (Coklat Karamel)", price: "20K" },
-      { name: "Red Glint (Red Velvet)", price: "20K" },
-      { name: "Green Pulse (Matcha)", price: "22K" },
-      { name: "Regal Phase", price: "22K" },
+      { name: "Dark Error (Coklat)", price: "19K" },
+      { name: "Hazel Core (Coklat Hazelnut)", price: "21K" },
+      { name: "Amber Echo (Coklat Karamel)", price: "21K" },
+      { name: "Red Glint (Red Velvet)", price: "21K" },
+      { name: "Green Pulse (Matcha)", price: "23K" },
+      { name: "Regal Phase (Susu Regal Creamy)", price: "22K" },
       { name: "Lychee-T (Teh Leci)", price: "19K" },
       { name: "Pixelade Blue (Leci Soda)", price: "21K" },
+      { name: "Air Mineral", price: "6K" },
+    ]
+  },
+  {
+    category: "SNACKWARE",
+    items: [
+      { name: "Tahu Bakso", price: "18K" },
+      { name: "Kentang Goreng", price: "22K" },
+      { name: "Mix Platter", price: "25K" },
     ]
   }
 ];
@@ -238,8 +249,8 @@ export default function GlitchCoffeeLanding() {
           <div className="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-12">
             <div className="col-span-4 p-6 grid-line-v flex items-center justify-between md:justify-start">
               <a href="#hero" className="flex items-center h-8 md:h-10">
-                <Image 
-                  src="/logo.png" 
+                <Image
+                  src="/logo.png"
                   alt="Glitch Coffee Logo"
                   width={200}
                   height={60}
@@ -248,9 +259,9 @@ export default function GlitchCoffeeLanding() {
                 />
               </a>
               <div className="md:hidden flex items-center gap-4">
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
+                <Button
+                  variant="ghost"
+                  size="sm"
                   onClick={() => setLang(lang === "en" ? "id" : "en")}
                   className="font-code text-xs uppercase p-0 h-auto hover:bg-transparent flex items-center gap-2"
                 >
@@ -275,9 +286,9 @@ export default function GlitchCoffeeLanding() {
             </div>
             <nav className="col-span-8 p-6 hidden md:flex justify-end gap-6 items-center font-code text-xs">
               <NavLinks />
-              <Button 
-                variant="ghost" 
-                size="sm" 
+              <Button
+                variant="ghost"
+                size="sm"
                 onClick={() => setLang(lang === "en" ? "id" : "en")}
                 className="font-code text-xs uppercase p-0 h-auto hover:bg-transparent flex items-center gap-2"
               >
@@ -314,15 +325,15 @@ export default function GlitchCoffeeLanding() {
             </motion.div>
           </div>
           <div className="col-span-12 md:col-span-4 p-8 flex items-center justify-center bg-[#111]">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               className="relative w-full aspect-square overflow-hidden"
             >
-              <Image 
-                src="/images/hero-coffee.jpg" 
-                alt="Hero Coffee" 
-                fill 
+              <Image
+                src="/images/hero-coffee.jpg"
+                alt="Hero Coffee"
+                fill
                 sizes="(max-width: 768px) 100vw, 33vw"
                 className="object-cover"
                 priority
@@ -356,12 +367,12 @@ export default function GlitchCoffeeLanding() {
               <span className="font-code text-xl">IDR 23.000</span>
             </div>
             <div className="relative aspect-video overflow-hidden transition-all duration-500">
-              <Image 
-                src="/images/butterscotch.jpg" 
-                alt="Butterscotch" 
-                fill 
+              <Image
+                src="/images/butterscotch.jpg"
+                alt="Butterscotch"
+                fill
                 sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover hover:scale-105 transition-transform duration-500" 
+                className="object-cover hover:scale-105 transition-transform duration-500"
               />
             </div>
           </div>
@@ -375,10 +386,10 @@ export default function GlitchCoffeeLanding() {
               <span className="font-code text-xl">IDR 18.000</span>
             </div>
             <div className="relative aspect-video overflow-hidden transition-all duration-500">
-              <Image 
-                src="/images/americano.jpg" 
-                alt="Ice Black" 
-                fill 
+              <Image
+                src="/images/americano.jpg"
+                alt="Ice Black"
+                fill
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover hover:scale-105 transition-transform duration-500"
               />
@@ -393,7 +404,7 @@ export default function GlitchCoffeeLanding() {
               <h3 className="font-headline font-black text-4xl md:text-5xl uppercase">{t.menuFull}</h3>
               <span className="font-code text-xs text-muted-foreground uppercase">{t.menuEssentials}</span>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
               {menuData.map((cat, catIdx) => (
                 <div key={catIdx} className="flex flex-col gap-4">
@@ -434,8 +445,8 @@ export default function GlitchCoffeeLanding() {
             </div>
 
             <div className="mt-16 flex justify-center">
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 onClick={() => setIsMenuExpanded(!isMenuExpanded)}
                 className="rounded-none border-white/20 hover:border-white font-code uppercase px-12 h-14 transition-all"
               >
@@ -481,7 +492,7 @@ export default function GlitchCoffeeLanding() {
               <path d="M30 20 L70 20 L70 50 L85 70 L85 180 L15 180 L15 70 L30 50 Z" />
               <rect x="35" y="10" width="30" height="10" />
             </svg>
-            
+
             <div className="relative z-10">
               <h3 className="font-headline font-black text-4xl uppercase mb-4">{t.bottleTitle}</h3>
               <p className="font-body mb-8">
@@ -508,34 +519,34 @@ export default function GlitchCoffeeLanding() {
               </p>
             </motion.div>
             <div className="mt-8">
-               <a href={WA_PO_LINK} target="_blank" rel="noopener noreferrer">
-                  <Button variant="outline" className="rounded-none border-white/20 hover:border-white font-code uppercase px-8 h-12 transition-all flex items-center gap-2">
-                     <Package className="w-4 h-4" /> {t.merchPO}
-                  </Button>
-               </a>
+              <a href={WA_PO_LINK} target="_blank" rel="noopener noreferrer">
+                <Button variant="outline" className="rounded-none border-white/20 hover:border-white font-code uppercase px-8 h-12 transition-all flex items-center gap-2">
+                  <Package className="w-4 h-4" /> {t.merchPO}
+                </Button>
+              </a>
             </div>
           </div>
           <div className="col-span-12 md:col-span-8 p-8 md:p-16">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 h-full">
               {[1, 2, 3, 4].map((i) => (
-                <motion.div 
+                <motion.div
                   key={i}
                   whileHover={{ scale: 0.98 }}
                   className="relative aspect-[3/4] bg-[#111] overflow-hidden transition-all border border-[#333]/30 group cursor-pointer"
                 >
                   {/* Front Image */}
-                  <Image 
-                    src={`/images/merch-${i}-front.jpg`} 
-                    alt={`Merch ${i} Front`} 
-                    fill 
+                  <Image
+                    src={`/images/merch-${i}-front.jpg`}
+                    alt={`Merch ${i} Front`}
+                    fill
                     sizes="(max-width: 768px) 50vw, 25vw"
                     className="object-cover transition-opacity duration-500 group-hover:opacity-0"
                   />
                   {/* Back Image (Hover) */}
-                  <Image 
-                    src={`/images/merch-${i}-back.jpg`} 
-                    alt={`Merch ${i} Back`} 
-                    fill 
+                  <Image
+                    src={`/images/merch-${i}-back.jpg`}
+                    alt={`Merch ${i} Back`}
+                    fill
                     sizes="(max-width: 768px) 50vw, 25vw"
                     className="object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
                   />
@@ -556,17 +567,17 @@ export default function GlitchCoffeeLanding() {
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {['gallery-1', 'gallery-2', 'gallery-3', 'gallery-4', 'gallery-5', 'gallery-6', 'hero-coffee', 'americano'].map((id, idx) => (
-                <motion.div 
+                <motion.div
                   key={idx}
                   whileHover={{ scale: 0.98 }}
                   className="relative aspect-square bg-[#111] overflow-hidden transition-all cursor-crosshair"
                 >
-                  <Image 
-                    src={`/images/${id}.jpg`} 
-                    alt={`Gallery ${idx}`} 
-                    fill 
+                  <Image
+                    src={`/images/${id}.jpg`}
+                    alt={`Gallery ${idx}`}
+                    fill
                     sizes="(max-width: 768px) 50vw, 25vw"
-                    className="object-cover" 
+                    className="object-cover"
                   />
                 </motion.div>
               ))}
@@ -597,15 +608,15 @@ export default function GlitchCoffeeLanding() {
         <Section id="location">
           <div className="col-span-12 md:col-span-7 grid-line-v min-h-[300px] md:min-h-[400px]">
             <div className="relative w-full h-full">
-               <iframe 
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.825264356877!2d116.94825909951066!3d-1.236624933906585!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2df1490064d5c5f3%3A0xab3ae5f90f00daaf!2sGLITCH%20COFFEE!5e0!3m2!1sid!2sid!4v1771649451092!5m2!1sid!2sid" 
-                  width="100%" 
-                  height="100%" 
-                  style={{ border: 0, minHeight: '300px' }} 
-                  allowFullScreen={false} 
-                  loading="lazy" 
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.825264356877!2d116.94825909951066!3d-1.236624933906585!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2df1490064d5c5f3%3A0xab3ae5f90f00daaf!2sGLITCH%20COFFEE!5e0!3m2!1sid!2sid!4v1771649451092!5m2!1sid!2sid"
+                width="100%"
+                height="100%"
+                style={{ border: 0, minHeight: '300px' }}
+                allowFullScreen={false}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
             </div>
           </div>
           <div className="col-span-12 md:col-span-5 p-8 md:p-16 bg-black">
