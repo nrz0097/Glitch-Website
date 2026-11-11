@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Instagram, MapPin, MessageCircle, Clock, HelpCircle, PhoneCall, Languages, Coffee, Menu, ChevronDown, ChevronUp, Bike, Package } from "lucide-react";
+import { Instagram, MapPin, MessageCircle, Clock, HelpCircle, PhoneCall, Languages, Coffee, Menu, ChevronDown, ChevronUp, Bike, Package, ThumbsUp, Snowflake, Flame, UtensilsCrossed } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
@@ -53,7 +53,7 @@ const translations = {
     deliveryTitle: "Bring the glitch home",
     deliveryHours: "Tuesday - Sunday 15:00 — 23:00",
     bottleTitle: "GLITCH MODULE",
-    bottleDesc: "Enjoy Glitch Coffee in every format. Engineered for delivery, ready on demand. Available in 250 ml. Larger formats coming soon.",
+    bottleDesc: "Enjoy Glitch Coffee in every format. Engineered for delivery, ready on demand. Available in 250 ml and 1 Liter bottle formats.",
     joinPO: "ORDER NOW!",
     merchPO: "SOON!",
     limitedStock: "LIMITED PER PRODUCTION CYCLE",
@@ -103,7 +103,7 @@ const translations = {
     deliveryTitle: "Bawa pulang glitch-mu",
     deliveryHours: "Selasa - Minggu 15:00 — 23:00",
     bottleTitle: "GLITCH MODUL",
-    bottleDesc: "Nikmati Glitch Coffee di setiap format. Dirancang untuk pengiriman, siap on-demand. 250 ml tersedia. Ukuran lain segera hadir.",
+    bottleDesc: "Nikmati Glitch Coffee di setiap format. Dirancang untuk pengiriman, siap on-demand. Kini varian 250 ml dan varian besar (1 Liter) sudah tersedia.",
     joinPO: "PESAN SEKARANG!",
     merchPO: "SEGERA!",
     limitedStock: "PRODUKSI TERBATAS PER BATCH",
@@ -128,58 +128,76 @@ const translations = {
   }
 };
 
-const menuData = [
+interface MenuItem {
+  name: string;
+  desc?: string;
+  price: string;
+  recommended?: boolean;
+  type?: "cold" | "hot" | "snack";
+}
+
+interface MenuCategory {
+  category: string;
+  items: MenuItem[];
+}
+
+const menuData: MenuCategory[] = [
   {
     category: "MILK BLEND COFFEE",
     items: [
-      { name: "White Glitch (Kopi Susu Klasik)", price: "18K" },
-      { name: "Tropica Static (Kopi Susu Kelapa)", price: "18K" },
-      { name: "Bit Berry (Kopi Susu Stroberi)", price: "18K" },
-      { name: "Brown Signal (Kopi Susu Aren)", price: "18K" },
-      { name: "Golden Delay (Kopi Susu Karamel)", price: "21K" },
-      { name: "Soft Byte (Kopi Susu Vanila)", price: "21K" },
-      { name: "Pandan Drift (Kopi Susu Pandan)", price: "21K" },
-      { name: "Sunny Peel (Kopi Susu Pisang)", price: "21K" },
-      { name: "Nut Stream (Kopi Susu Hazelnut)", price: "21K" },
-      { name: "Mocha Tide (Kopi Susu Mocha Seasalt)", price: "21K" },
-      { name: "Bloom Sign (Kopi Susu Jasmine)", price: "21K" },
-      { name: "Monswift (Kopi Susu Cinnamon)", price: "22K" },
-      { name: "Buttersync (Kopi Susu Butterscotch)", price: "23K" },
-      { name: "Sweetflow (Kopi Susu Caramel Macchiato)", price: "23K" },
+      { name: "White Glitch", desc: "Kopi Susu Klasik", price: "18K", recommended: true, type: "cold" },
+      { name: "Tropica Static", desc: "Kopi Susu Kelapa", price: "18K", type: "cold" },
+      { name: "Bit Berry", desc: "Kopi Susu Stroberi", price: "18K", type: "cold" },
+      { name: "Brown Signal", desc: "Kopi Susu Aren", price: "18K", type: "cold" },
+      { name: "Golden Delay", desc: "Kopi Susu Karamel", price: "21K", type: "cold" },
+      { name: "Soft Byte", desc: "Kopi Susu Vanila", price: "21K", type: "cold" },
+      { name: "Bloom Sign", desc: "Kopi Susu Jasmine", price: "21K", type: "cold" },
+      { name: "Pandan Drift", desc: "Kopi Susu Pandan", price: "21K", type: "cold" },
+      { name: "Sunny Peel", desc: "Kopi Susu Pisang", price: "21K", type: "cold" },
+      { name: "Nut Stream", desc: "Kopi Susu Hazelnut", price: "21K", type: "cold" },
+      { name: "Mocha Tide", desc: "Kopi Susu Mocha Seasalt", price: "21K", type: "cold" },
+      { name: "Mangolier", desc: "Kopi Susu Mango Sticky Rice", price: "21K", type: "cold" },
+      { name: "Monswift", desc: "Kopi Susu Cinnamon", price: "23K", type: "cold" },
+      { name: "Cheesecode", desc: "Kopi Susu Cream Cheese", price: "23K", type: "cold" },
+      { name: "Buttersync", desc: "Kopi Susu Butterscotch", price: "23K", recommended: true, type: "cold" },
+      { name: "Sweetflow", desc: "Kopi Susu Caramel Macchiato", price: "23K", type: "cold" },
     ]
   },
   {
-    category: "NOIR SERIES",
+    category: "NOIR COFFEE SERIES",
     items: [
-      { name: "Ice Black", price: "18K" },
-      { name: "Vietnam Drip", price: "20K" },
-      { name: "Shakerato", price: "21K" },
-      { name: "Honey Fizz", price: "21K" },
-      { name: "Peach Wave", price: "22K" },
-      { name: "Berry Comb", price: "22K" },
-      { name: "Espresso", price: "10K" },
+      { name: "Ice Black", desc: "Single Shot Americano", price: "18K", type: "cold" },
+      { name: "Long Black", desc: "Double Shot Americano", price: "24K", type: "cold" },
+      { name: "Black Shift", desc: "Peach/Leci Americano", price: "22K", type: "cold" },
+      { name: "Vietnam Drip", desc: "Kopi Susu Vietnam", price: "20K", type: "hot" },
+      { name: "Shakerato", desc: "Espresso Lemonade", price: "21K", type: "cold" },
+      { name: "Honey Fizz", desc: "Espresso Madu Soda", price: "21K", type: "cold" },
+      { name: "Peach Wave", desc: "Espresso Jeruk Peach", price: "22K", type: "cold" },
+      { name: "Berry Comb", desc: "Espresso Berry Madu", price: "22K", type: "cold" },
     ]
   },
   {
-    category: "NON COFFEE",
+    category: "NON COFFEE SERIES",
     items: [
-      { name: "Dark Error (Coklat)", price: "19K" },
-      { name: "Hazel Core (Coklat Hazelnut)", price: "21K" },
-      { name: "Amber Echo (Coklat Karamel)", price: "21K" },
-      { name: "Red Glint (Red Velvet)", price: "21K" },
-      { name: "Green Pulse (Matcha)", price: "23K" },
-      { name: "Regal Phase (Susu Regal Creamy)", price: "22K" },
-      { name: "Lychee-T (Teh Leci)", price: "19K" },
-      { name: "Pixelade Blue (Leci Soda)", price: "21K" },
+      { name: "Dark Error", desc: "Coklat", price: "18K", type: "cold" },
+      { name: "Hazel Core", desc: "Coklat Hazelnut", price: "21K", type: "cold" },
+      { name: "Amber Echo", desc: "Coklat Karamel", price: "21K", type: "cold" },
+      { name: "Berry Patch", desc: "Susu Stroberi Jam", price: "21K", type: "cold" },
+      { name: "Red Glint", desc: "Red Velvet", price: "21K", type: "cold" },
+      { name: "Green Pulse", desc: "Matcha", price: "23K", type: "cold" },
+      { name: "Regal Phase", desc: "Susu Regal", price: "22K", type: "cold" },
+      { name: "Banana Cloud", desc: "Susu Pisang Creamy", price: "22K", type: "cold" },
+      { name: "Lychee-T", desc: "Teh Leci", price: "19K", type: "cold" },
+      { name: "Pixelade Blue", desc: "Leci Soda", price: "21K", type: "cold" },
       { name: "Air Mineral", price: "6K" },
     ]
   },
   {
-    category: "SNACKWARE",
+    category: "SNACK / MAKANAN",
     items: [
-      { name: "Tahu Bakso", price: "18K" },
-      { name: "Kentang Goreng", price: "22K" },
-      { name: "Mix Platter", price: "25K" },
+      { name: "Tahu Bakso", price: "18K", type: "snack" },
+      { name: "Kentang Goreng", price: "22K", type: "snack" },
+      { name: "Mix Platter", price: "25K", type: "snack" },
     ]
   }
 ];
@@ -208,7 +226,7 @@ export default function GlitchCoffeeLanding() {
 
   const IG_LINK = "https://www.instagram.com/glitchcoffee.id/";
   const WA_ORDER_LINK = "https://wa.me/6289527539529?text=Halo%20kak%2C%20aku%20mau%20order%20Glitch%20Coffee%20nya%20dong!";
-  const WA_PO_LINK = "https://wa.me/6289527539529?text=Halo%20kak%2C%20aku%20mau%20PO%20Glitch%20Modulenya%20dong!";
+  const WA_PO_LINK = "https://wa.me/6289527539529?text=Halo%20kak%2C%20aku%20mau%20order%20Glitch%20Module%20(250ml%20%2F%201%20Liter)%20dong!";
   const GOFOOD_LINK = "https://gofood.co.id/balikpapan/restaurant/toko-kopi-glitch-coffee-stadion-batakan--f5005098-6a23-40fe-8b0e-79b0126191b6";
   const SHOPEE_LINK = "https://shopee.co.id/now-food/shop/22328224?deep_and_deferred=1&shareChannel=copy_link&stm_medium=referral&stm_source=https%3A%2F%2Flnk.bio%2F-rw&uls_trackid=54vtd5gl00pv";
   const WA_EVENT_LINK = "https://wa.me/6289527539529?text=Halo%20kak%2C%20aku%20mau%20tanya-tanya%20untuk%20event%20dong!";
@@ -410,35 +428,42 @@ export default function GlitchCoffeeLanding() {
                 <div key={catIdx} className="flex flex-col gap-4">
                   <h4 className="font-headline text-lg text-muted-foreground border-b border-[#333] pb-2 mb-2">{cat.category}</h4>
                   <div className="flex flex-col gap-1">
-                    {(isMenuExpanded ? cat.items : cat.items.slice(0, 3)).map((item, idx) => {
-                      const parts = item.name.split(' (');
-                      const mainName = parts[0];
-                      const description = parts[1] ? parts[1].replace(')', '') : null;
-
-                      return (
-                        <div key={idx} className="flex justify-between py-3 border-b border-[#333]/30 hover:bg-white/5 transition-colors px-2 font-body group">
-                          <div className="flex items-center">
-                            {description ? (
-                              <Tooltip>
-                                <TooltipTrigger asChild>
-                                  <span className="uppercase font-bold tracking-tight text-sm md:text-base group-hover:text-white transition-colors cursor-default border-b border-dashed border-white/20">
-                                    {mainName}
-                                  </span>
-                                </TooltipTrigger>
-                                <TooltipContent className="bg-white text-black border-none rounded-none font-code text-xs px-3 py-2 shadow-xl">
-                                  {description}
-                                </TooltipContent>
-                              </Tooltip>
-                            ) : (
-                              <span className="uppercase font-bold tracking-tight text-sm md:text-base group-hover:text-white transition-colors">
-                                {mainName}
+                    {(isMenuExpanded ? cat.items : cat.items.slice(0, 4)).map((item, idx) => (
+                      <div
+                        key={idx}
+                        className="flex justify-between items-start py-3 border-b border-[#333]/30 hover:bg-white/5 transition-colors px-2 font-body group"
+                      >
+                        <div className="flex flex-col pr-4">
+                          <div className="flex items-center gap-2">
+                            <span className="uppercase font-bold tracking-tight text-sm md:text-base group-hover:text-white transition-colors">
+                              {item.name}
+                            </span>
+                            {item.recommended && (
+                              <span className="inline-flex items-center gap-1 text-[9px] bg-white text-black font-code px-1.5 py-0.5 font-bold uppercase tracking-wider">
+                                <ThumbsUp className="w-2.5 h-2.5 fill-black" /> Best
                               </span>
                             )}
                           </div>
-                          <span className="font-code text-muted-foreground text-sm">{item.price}</span>
+                          {item.desc && (
+                            <span className="font-code text-xs text-muted-foreground/80 mt-0.5 tracking-tight">
+                              --. {item.desc}
+                            </span>
+                          )}
                         </div>
-                      );
-                    })}
+                        <div className="flex items-center gap-1.5 font-code text-sm shrink-0 pt-0.5">
+                          <span className="font-medium text-white/90">{item.price}</span>
+                          {item.type === "cold" && (
+                            <Snowflake className="w-3.5 h-3.5 text-sky-400/80" />
+                          )}
+                          {item.type === "hot" && (
+                            <Flame className="w-3.5 h-3.5 text-amber-500/90" />
+                          )}
+                          {item.type === "snack" && (
+                            <UtensilsCrossed className="w-3.5 h-3.5 text-zinc-400/80" />
+                          )}
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               ))}
@@ -494,10 +519,30 @@ export default function GlitchCoffeeLanding() {
             </svg>
 
             <div className="relative z-10">
-              <h3 className="font-headline font-black text-4xl uppercase mb-4">{t.bottleTitle}</h3>
-              <p className="font-body mb-8">
+              <div className="flex items-center gap-2 mb-4">
+                <span className="font-code text-[11px] bg-black text-white px-2 py-0.5 uppercase tracking-wider font-semibold">Ready Stock</span>
+                <span className="font-code text-[11px] text-black/60 uppercase tracking-wider">Take-Home Series</span>
+              </div>
+              <h3 className="font-headline font-black text-4xl uppercase mb-3">{t.bottleTitle}</h3>
+              <p className="font-body mb-6 text-black/80">
                 {t.bottleDesc}
               </p>
+
+              {/* Volume Options Badges */}
+              <div className="grid grid-cols-2 gap-3 mb-8">
+                <div className="border border-black/20 p-3 bg-black/[0.03] flex flex-col justify-between">
+                  <span className="font-headline font-black text-base md:text-lg">250 ML</span>
+                  <span className="font-code text-[10px] text-black/60 uppercase tracking-tight">Personal Dose • Ready</span>
+                </div>
+                <div className="border-2 border-black p-3 bg-black text-white flex flex-col justify-between relative shadow-sm">
+                  <div className="flex justify-between items-start">
+                    <span className="font-headline font-black text-base md:text-lg">1 LITER</span>
+                    <span className="text-[9px] bg-white text-black font-code font-bold px-1.5 py-0.5 uppercase tracking-wider">Ready</span>
+                  </div>
+                  <span className="font-code text-[10px] text-zinc-300 uppercase tracking-tight mt-1">Varian Besar • Tersedia</span>
+                </div>
+              </div>
+
               <a href={WA_PO_LINK} target="_blank" rel="noopener noreferrer">
                 <Button variant="default" className="bg-black text-white hover:bg-zinc-800 rounded-none font-code uppercase w-full h-14 transition-colors">
                   {t.joinPO}
