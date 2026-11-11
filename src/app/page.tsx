@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Instagram, MapPin, MessageCircle, Clock, HelpCircle, PhoneCall, Languages, Coffee, Menu, ChevronDown, ChevronUp, Bike, Package, ThumbsUp, Snowflake, Flame, UtensilsCrossed } from "lucide-react";
+import { Instagram, MapPin, MessageCircle, Clock, HelpCircle, PhoneCall, Languages, Coffee, Menu, ChevronDown, ChevronUp, Bike, Package, ThumbsUp, Snowflake, Flame, UtensilsCrossed, Download, FileText } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
@@ -50,6 +50,7 @@ const translations = {
     menuEssentials: "Menu Essentials",
     menuShowMore: "Expand Menu",
     menuShowLess: "Collapse Menu",
+    downloadMenuPdf: "Download PDF Menu",
     deliveryTitle: "Bring the glitch home",
     deliveryHours: "Tuesday - Sunday 15:00 — 23:00",
     bottleTitle: "GLITCH MODULE",
@@ -100,6 +101,7 @@ const translations = {
     menuEssentials: "Esensi Menu",
     menuShowMore: "Lihat Semua",
     menuShowLess: "Tutup Menu",
+    downloadMenuPdf: "Unduh Menu PDF",
     deliveryTitle: "Bawa pulang glitch-mu",
     deliveryHours: "Selasa - Minggu 15:00 — 23:00",
     bottleTitle: "GLITCH MODUL",
@@ -418,9 +420,24 @@ export default function GlitchCoffeeLanding() {
         {/* Additional Menu List - Essentials */}
         <Section id="menu">
           <div className="col-span-12 p-8 md:p-16">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4">
-              <h3 className="font-headline font-black text-4xl md:text-5xl uppercase">{t.menuFull}</h3>
-              <span className="font-code text-xs text-muted-foreground uppercase">{t.menuEssentials}</span>
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4 pb-6 border-b border-[#333]">
+              <div>
+                <h3 className="font-headline font-black text-4xl md:text-5xl uppercase">{t.menuFull}</h3>
+                <span className="font-code text-xs text-muted-foreground uppercase">{t.menuEssentials}</span>
+              </div>
+              <a
+                href="/menu-glitch-coffee.pdf"
+                download="Glitch-Coffee-Menu.pdf"
+                className="inline-block"
+              >
+                <Button
+                  variant="outline"
+                  className="rounded-none border-white/20 hover:border-white hover:bg-white hover:text-black font-code uppercase text-xs h-11 px-5 transition-all flex items-center gap-2"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  {t.downloadMenuPdf}
+                </Button>
+              </a>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
@@ -469,15 +486,27 @@ export default function GlitchCoffeeLanding() {
               ))}
             </div>
 
-            <div className="mt-16 flex justify-center">
+            <div className="mt-16 flex flex-wrap justify-center items-center gap-4">
               <Button
                 variant="outline"
                 onClick={() => setIsMenuExpanded(!isMenuExpanded)}
-                className="rounded-none border-white/20 hover:border-white font-code uppercase px-12 h-14 transition-all"
+                className="rounded-none border-white/20 hover:border-white font-code uppercase px-8 md:px-12 h-14 transition-all"
               >
                 {isMenuExpanded ? <ChevronUp className="mr-2 h-4 w-4" /> : <ChevronDown className="mr-2 h-4 w-4" />}
                 {isMenuExpanded ? t.menuShowLess : t.menuShowMore}
               </Button>
+              <a
+                href="/menu-glitch-coffee.pdf"
+                download="Glitch-Coffee-Menu.pdf"
+              >
+                <Button
+                  variant="default"
+                  className="bg-white text-black hover:bg-zinc-200 rounded-none border border-white font-code uppercase px-8 h-14 transition-all flex items-center gap-2"
+                >
+                  <Download className="w-4 h-4" />
+                  {t.downloadMenuPdf}
+                </Button>
+              </a>
             </div>
           </div>
         </Section>
